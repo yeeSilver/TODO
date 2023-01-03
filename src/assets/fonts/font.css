@@ -1,0 +1,11 @@
+@charset "utf-8";
+
+@font-face {
+  font-family: 'Lobster';
+  src: url(./Lobster-Regular.ttf)
+}
+
+@font-face {
+  font-family: 'AbrilFatface';
+  src: url(./AbrilFatface-Regular.ttf)
+}

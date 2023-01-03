@@ -27,6 +27,7 @@ const Input = styled.input`
   padding: 10px 5px;
   border-radius: 5px;
   border: none;
+  font-size: 1rem;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 `;
 
@@ -44,8 +45,6 @@ export default function Login_form() {
     <div>
       <LogInForm onSubmit={handleSubmit(onValid, onInvalid)}>
         <Input
-          // onSubmit={handleSubmit(onValid)}
-
           {...register("email", {
             required: "이메일 주소가 올바르지 않습니다.",
             // pattern: regexEm,

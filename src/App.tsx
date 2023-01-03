@@ -1,10 +1,12 @@
-import React from "react";
-import Login_form from "./components/auth/Login_form";
+import { Reset } from "styled-reset";
+import "./assets/fonts/font.css";
+import Login_page from "./pages/auth/Login_page";
 
 function App() {
   return (
     <div className="App">
-      <Login_form />
+      <Reset />
+      <Login_page />
     </div>
   );
 }
