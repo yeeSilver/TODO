@@ -36,11 +36,11 @@ export default function Login_form() {
     register,
     handleSubmit,
     formState: { isValid },
-  } = useForm();
+  } = useForm<IForm>();
   const onValid = (data: any) => console.log(data, "onvalid");
   const onInvalid = (data: any) => console.log(data, "onInvalid");
-  const regexEm =
-    /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+  // const regexEm =
+  //   /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
   return (
     <div>
       <LogInForm onSubmit={handleSubmit(onValid, onInvalid)}>
