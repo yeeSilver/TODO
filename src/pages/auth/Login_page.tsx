@@ -1,5 +1,3 @@
-import { url } from "inspector";
-import React from "react";
 import styled from "styled-components";
 import Login_form from "../../components/auth/Login_form";
 import bgImg from "../../assets/img/pinkBg.jpg";
