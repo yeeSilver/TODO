@@ -11,8 +11,8 @@ function App() {
       <Reset />
       {/* <Create_form />
       <Login_form /> */}
-      {/* <Login_page /> */}
-      <Register_page />
+      <Login_page />
+      {/* <Register_page /> */}
     </div>
   );
 }
