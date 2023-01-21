@@ -42,7 +42,7 @@ const ErrorText = styled.p`
   color: red;
   font-size: 0.8rem;
 `;
-export default function Create_form() {
+export default function RegisterForm() {
   const {
     register,
     handleSubmit,

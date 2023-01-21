@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Login_form from "../../components/auth/Login_form";
+import LoginForm from "../../components/auth/Login_form";
 import bgImg from "../../assets/img/pinkBg.jpg";
 
 const Container = styled.div`
@@ -45,7 +45,7 @@ const Img = styled.div`
   }
 `;
 
-export default function Login_page() {
+export default function LoginPage() {
   return (
     <Container>
       <Section>
@@ -57,7 +57,7 @@ export default function Login_page() {
             <h2>LOG IN</h2>
             <p>Hello! Sign into Your account</p>
           </Text>
-          <Login_form />
+          <LoginForm />
           <p style={{ color: "grey", fontSize: "8px", marginTop: "15px" }}>
             Don't have an account?
           </p>

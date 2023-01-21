@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 import bgImg from "../../assets/img/pinkBg.jpg";
-import Create_form from "../../components/auth/Create_form";
+import RegisterForm from "../../components/auth/Register_form";
 
 const Container = styled.div`
   display: flex;
@@ -52,7 +52,7 @@ const Img = styled.div`
   }
 `;
 
-export default function Register_page() {
+export default function RegisterPage() {
   return (
     <div>
       <Container>
@@ -64,7 +64,7 @@ export default function Register_page() {
             <Text>
               <h2>Create an Account</h2>
             </Text>
-            <Create_form />
+            <RegisterForm />
             <div style={{ textAlign: "center", marginTop: "20px" }}>
               <span
                 style={{
