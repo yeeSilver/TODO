@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+
 import useLogin from "../../hooks/mutation/auth/useLogin";
 
 interface IForm {
@@ -39,15 +39,13 @@ export default function LoginForm() {
     handleSubmit,
     formState: { isValid },
   } = useForm<IForm>();
+
+  const { mutate, error } = useLogin();
   const onValid = ({ inputEmail, inputPw }: IForm) => {
     mutate({ inputEmail, inputPw });
   };
-  const onInvalid = (data: any) => console.log(data, "onInvalid");
-  const navigate = useNavigate();
-  const onGoSignupPage = () => {
-    navigate("/signup");
-  };
-  const { mutate, error } = useLogin();
+  const onInvalid = (data: any) =>
+    console.log(data, "이메일과 비밀번호를 다시 한번 확인해 주세요");
 
   const regexEm =
     /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
@@ -69,7 +67,7 @@ export default function LoginForm() {
           })}
           placeholder="🔐 Password"
         />
-        <LoginBtn type="submit" disabled={!isValid} onClick={onGoSignupPage}>
+        <LoginBtn type="submit" disabled={!isValid}>
           Log In
         </LoginBtn>
       </LogInForm>

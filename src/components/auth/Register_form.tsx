@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
+import useRegister from "../../hooks/mutation/auth/useRegiser";
 
 interface IAuthForm {
   errors: {
@@ -7,8 +8,8 @@ interface IAuthForm {
       message: string;
     };
   };
-  authEmail: string;
-  authPw: string;
+  email: string;
+  password: string;
   confirmedPw: string;
   extraError?: string;
 }
@@ -51,14 +52,22 @@ export default function RegisterForm() {
     formState: { errors, isValid },
   } = useForm<IAuthForm>({ mode: "onBlur" });
   //{ shouldFocusError: true }
-
-  const onValid = (data: IAuthForm) => {
-    if (data.authPw !== data.confirmedPw) {
+  const { mutate } = useRegister();
+  // const clientaxios = useRegister;
+  const onValid = ({ email, password, confirmedPw }: IAuthForm) => {
+    console.log("click");
+    if (password !== confirmedPw) {
       setError("confirmedPw", { message: "비밀번호가 일치하지 않습니다." });
-      console.log(data.authPw, data.confirmedPw);
-      console.log(watch().authPw);
+    } else {
+      console.log({
+        email: email,
+        password: password,
+      });
+      // const data = { email, password };
+      mutate({ email, password });
     }
   };
+
   const regexEm =
     /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
   return (
@@ -66,7 +75,7 @@ export default function RegisterForm() {
       <AuthForm onSubmit={handleSubmit(onValid)}>
         <p>이메일</p>
         <Input
-          {...register("authEmail", {
+          {...register("email", {
             required: "올바르지 않는 이메일 형식입니다.",
 
             pattern: {
@@ -76,17 +85,17 @@ export default function RegisterForm() {
           })}
           placeholder="📧 이메일을 입력하세요"
         />
-        <ErrorText>{errors?.authEmail?.message}</ErrorText>
+        <ErrorText>{errors?.email?.message}</ErrorText>
 
         <p>비밀번호</p>
         <Input
-          {...register("authPw", {
+          {...register("password", {
             required: "최소 8자 이상 입력해주세요.",
             minLength: { value: 8, message: "최소 8자 이상 입력해주세요." },
           })}
           placeholder="🔐 비밀번호를 입력하세요"
         />
-        <ErrorText>{errors?.authPw?.message}</ErrorText>
+        <ErrorText>{errors?.password?.message}</ErrorText>
 
         <p>비밀번호 재확인</p>
         <Input
@@ -97,9 +106,6 @@ export default function RegisterForm() {
           placeholder="🔐 비밀번호를 한번 더 입력하세요"
         />
         <ErrorText>{errors?.confirmedPw?.message}</ErrorText>
-        {/* {watch().authPw !== watch().confirmedPw && (
-          <ErrorText>{errors?.extraError?.message}</ErrorText>
-        )} */}
 
         <CreateBtn type="submit" disabled={!isValid}>
           Register

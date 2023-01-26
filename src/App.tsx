@@ -9,7 +9,6 @@ function App() {
     <div className="App">
       <Reset />
       <Router />
-      <ReactQueryDevtools initialIsOpen={true} />
     </div>
   );
 }

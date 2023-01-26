@@ -1,3 +1,4 @@
+import { useNavigate, useMatch } from "react-router-dom";
 import styled from "styled-components";
 import LoginForm from "../../components/auth/Login_form";
 import bgImg from "../../assets/img/pinkBg.jpg";
@@ -46,6 +47,12 @@ const Img = styled.div`
 `;
 
 export default function LoginPage() {
+  const navigate = useNavigate();
+  const onGoSignupPage = () => {
+    navigate(`signup`);
+    console.log("btnOn");
+  };
+
   return (
     <Container>
       <Section>
@@ -62,6 +69,7 @@ export default function LoginPage() {
             Don't have an account?
           </p>
           <p
+            onClick={onGoSignupPage}
             style={{
               color: "orange",
               fontSize: "12px",
