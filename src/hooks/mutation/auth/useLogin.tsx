@@ -1,9 +1,9 @@
 import axios from "axios";
 import { AxiosResponse } from "axios";
 import { useMutation } from "@tanstack/react-query";
-import { AuthAPI } from "../../../constants/api";
-import { setLocalStorage } from "../../../utils/localStorage";
-import { apiRequest } from "../../../api/authApi";
+import { AuthAPI } from "../../../constants/api/api";
+import token from "../../../utils/localStorage";
+import { api } from "../../../utils/instance";
 
 interface IForm {
   inputEmail: string;
@@ -19,14 +19,14 @@ interface ILoginResponse {
 const useLogin = () => {
   //분리해야 할 듯
   const loginRequest = ({ inputEmail, inputPw }: IForm) =>
-    apiRequest.post(`${AuthAPI.LOGIN}`, {
+    api.post(`${AuthAPI.LOGIN}`, {
       email: inputEmail,
       password: inputPw,
     });
 
   return useMutation(loginRequest, {
     onSuccess: (loginData: AxiosResponse<ILoginResponse>) => {
-      setLocalStorage("token", loginData.data.token);
+      token.setToken("token", loginData.data.token);
       console.log("success");
     },
     onError: (error) => {
