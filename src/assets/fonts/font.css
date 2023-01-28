@@ -7,5 +7,18 @@
 
 @font-face {
   font-family: 'AbrilFatface';
-  src: url(./AbrilFatface-Regular.ttf)
+  src: url(./AbrilFatface-Regular.ttf) 
+}
+
+@font-face {
+  font-family: 'Changa One';
+  src: url(./ChangaOne-Regular.ttf);
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'LINESeedKR-Bd';
+  src: url(./LINESeedKR-Rg.ttf) format('woff');
+  font-weight: 700;
+  font-style: normal;
 }
