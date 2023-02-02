@@ -27,22 +27,12 @@ interface ICreateTodo {
 
 const useCreateTodo = () => {
   const navigate = useNavigate();
-  const accessToken = token.getToken(ACCESS_TOKEN_KEY);
-  console.log(accessToken);
   //분리해야 할 듯
   const createRequest = ({ title, content }: ITodoForm) =>
-    client.post<ICreateTodo>(
-      `${TodoAPI.CREATE}`,
-      {
-        title: title,
-        content: content,
-      }
-      // {
-      //   headers: {
-      //     Authorization: accessToken,
-      //   },
-      // }
-    );
+    client.post<ICreateTodo>(`${TodoAPI.TODOS}`, {
+      title: title,
+      content: content,
+    });
 
   return useMutation(createRequest, {
     onSuccess: (data: AxiosResponse<ICreateTodo>) => {
