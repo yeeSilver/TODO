@@ -16,7 +16,7 @@ const AddForm = styled.form`
   border-radius: 5px;
   border: none;
 `;
-const FormContainer = styled.div`
+const FormCon = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -90,7 +90,7 @@ export default function TodoForm() {
   };
   return (
     <AddForm onSubmit={handleSubmit(onValid)}>
-      <FormContainer>
+      <FormCon>
         <Text>TITLE</Text>
         <Input
           {...register("title", {
@@ -105,7 +105,7 @@ export default function TodoForm() {
           })}
           placeholder="내용을 입력해주세요"
         />
-      </FormContainer>
+      </FormCon>
       <BtnBox>
         <Btn>Cancel</Btn>
         <Btn disabled={!isValid}>Publish</Btn>
