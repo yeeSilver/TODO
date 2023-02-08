@@ -27,7 +27,7 @@ interface ICreateTodo {
 
 const useCreateTodo = () => {
   const navigate = useNavigate();
-  //분리해야 할 듯
+
   const createRequest = ({ title, content }: ITodoForm) =>
     client.post<ICreateTodo>(`${TodoAPI.TODOS}`, {
       title: title,

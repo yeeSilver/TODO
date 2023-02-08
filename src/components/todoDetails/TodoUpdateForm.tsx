@@ -16,8 +16,8 @@ import { TodoAPI } from "../../constants/api/api";
 import client from "../../constants/axios/axios";
 
 interface ITodoForm {
-  title: string;
-  content: string;
+  title: string | undefined;
+  content: string | undefined;
 }
 
 interface IUpdate {
@@ -123,50 +123,18 @@ const Btn = styled.button`
 `;
 
 export default function TodoUpdateForm() {
-  // const id = useParams().id as string;
-  const todos = useRecoilState(toDoState);
-  const id = todos[0][0].id as string;
-
-  // const { isLoading, data: todosById } = useQuery(["todosById"], () =>
-  //   // getTodosById(id)
-  //   fetch(`${client.get<IGetTodos>(`${TodoAPI.TODOS}/${id}`)}`).then((res) =>
-  //     res.json()
-  //   )
-  // );
-
-  // console.log(isLoading ? isLoading : todosById?.data?.data[0].content);
-  // console.log(todosById?.data.data.map((el) => el.title));
-  const { isLoading, data: todosById } = useQuery<ITodoResponse>(
-    ["getTodos", id],
-    () => fetchTodos(id).then((res) => res.clone().json())
-  );
-
   const {
     register,
     handleSubmit,
-    formState: { isValid, errors },
-  } = useForm<ITodoForm>({});
+    formState: { isValid },
+  } = useForm<ITodoForm>();
   const navigate = useNavigate();
   const closeEdit = () => {
     navigate(-1);
-    // navigate("/");
   };
-  const { mutate } = useUpdateTodo();
 
-  // const onUpdate = ({ data, id }: IUpdate) => {
-  //   console.log("update");
-  //   mutate({ data, id });
-  // };
-  // const onValid = ({ title, content }: ITodoForm) => {
-  //   // closeEdit();
-  //   console.log("onValid");
-  //   const data = { title, content };
-  //   onUpdate({ data, id });
-  //   closeEdit();
-  // };
-
-  const onValid = () => {
-    console.log("title");
+  const onValid = ({ title, content }: ITodoForm) => {
+    console.log(title, content);
   };
 
   const oninvalid = () => {
@@ -175,56 +143,32 @@ export default function TodoUpdateForm() {
 
   return (
     <Modal>
-      {isLoading ? (
-        <div>로딩중 입니다.</div>
-      ) : (
-        <AddForm onSubmit={handleSubmit(onValid, oninvalid)}>
-          <BackBtn onClick={closeEdit}>❌</BackBtn>
-          {/* <AddForm> */}
-          {/* <FormCon>
-            <Text>TITLE</Text>
-            <Input
-              {...register("title" || "", {
-                required: true,
-                minLength: {
-                  value: 1,
-                  message: "최소 1글자 이상 입력해주세요",
-                },
-              })}
-              placeholder={
-                todos[0][0].title ? todos[0][0].title : "입력해주세요"
-              }
-            />
-            <Text>CONTENTS</Text>
-            <Textarea
-              {...register("content" || "", {
-                required: true,
-                minLength: {
-                  value: 1,
-                  message: "최소 1글자 이상 입력해주세요",
-                },
-              })}
-              placeholder={
-                todos[0][0].content ? todos[0][0].content : "입력해주세요"
-              }
-            />
-          </FormCon> */}
-          <input
-            {...register("title",  error={formState.errors?.content ? true : false},{
-              required: true,
+      <AddForm onSubmit={handleSubmit(onValid)}>
+        <BackBtn onClick={closeEdit}>❌</BackBtn>
+        <FormCon>
+          <Text>TITLE</Text>
+          <Input
+            {...register("title", {
+              required: "최소 1글자 이상 입력해주세요",
+              minLength: { value: 1, message: "최소 1글자 이상 입력해주세요" },
             })}
-            
-            placeholder={todos[0][0].title}
+            placeholder="제목을 입력해주세요"
           />
-          <button type="submit">good</button>
-
-          {/* <div style={{ textAlign: "center" }}>
-            <Btn type="submit" disabled={!isValid}>
-              Update
-            </Btn>
-          </div> */}
-        </AddForm>
-      )}
+          <Text>CONTENTS</Text>
+          <Textarea
+            {...register("content", {
+              required: "최소 1글자 이상 입력해주세요",
+              minLength: { value: 1, message: "최소 1글자 이상 입력해주세요" },
+            })}
+            placeholder="내용을 입력해주세요"
+          />
+        </FormCon>
+        <div style={{ textAlign: "center" }}>
+          <Btn type="submit" disabled={!isValid}>
+            SAVE
+          </Btn>
+        </div>
+      </AddForm>
     </Modal>
   );
 }
