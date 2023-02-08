@@ -5,6 +5,9 @@ import styled from "styled-components";
 import { IToDoState, toDoState } from "../../atoms/recoil";
 import EditSvg from "../../assets/svg/edit.svg";
 import { Link, Outlet, useParams } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import useDelTodo, { delTodo } from "../../hooks/mutation/todo/useDelTodo";
+import DelSvg from "../../assets/svg/remove.svg";
 
 interface ITodoForm {
   title: string;
@@ -28,7 +31,7 @@ const DetailCon = styled.div`
   padding: 10px;
 `;
 
-const DetailForm = styled.form`
+const DetailForm = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -38,7 +41,7 @@ const DetailForm = styled.form`
   height: 85%;
 `;
 
-const Title = styled.input`
+const Title = styled.span`
   font-size: 1.5rem;
   font-weight: 600;
   font-family: "LINESeedKR-Bd";
@@ -48,7 +51,7 @@ const Title = styled.input`
   text-align: center;
 `;
 
-const Content = styled.textarea`
+const Content = styled.p`
   height: 100%;
   width: 80%;
   padding: 10px;
@@ -82,6 +85,14 @@ const EditBtn = styled.button`
     height: 30px;
   }
 `;
+const DelBtn = styled(EditBtn)`
+  &:hover {
+    cursor: pointer;
+    background-color: #f07373d7;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  }
+  background-color: #e69c9cd8;
+`;
 
 const DetailHeader = styled.div`
   display: flex;
@@ -96,16 +107,20 @@ const CreateDate = styled.p`
 export default function TodoDetailForm() {
   const todos = useRecoilState(toDoState);
 
-  const {
-    handleSubmit,
-    register,
-    watch,
-    formState: { isValid },
-  } = useForm<ITodoForm>();
-  const onValid = () => {
-    console.log("editbtn");
+  const id = todos[0][0].id;
+  const { mutate } = useDelTodo();
+
+  const onDelClicked = () => {
+    // eslint-disable-next-line no-restricted-globals
+    const res = confirm("해당 항목을 정말 삭제하시겠습니까?");
+    if (res) {
+      onDelete();
+    }
   };
 
+  const onDelete = () => {
+    mutate(id);
+  };
   return (
     <>
       {todos[0][0].updatedAt === undefined ? (
@@ -114,43 +129,28 @@ export default function TodoDetailForm() {
         <Container>
           <DetailCon>
             <DetailHeader>
+              <DelBtn onClick={onDelClicked}>
+                <img src={DelSvg} alt="delete button" />
+              </DelBtn>
               <CreateDate>
                 {todos[0][0].updatedAt.slice(0, 10)
                   ? todos[0][0].updatedAt.slice(0, 10)
                   : "입력해주세요"}
               </CreateDate>
               <Link to={`/details/${todos[0][0].id}`}>
-                <EditBtn id={`${todos[0][0].id}`}>
+                <EditBtn>
                   <img src={EditSvg} alt="edit button" />
                 </EditBtn>
                 <Outlet />
               </Link>
             </DetailHeader>
-            <DetailForm onSubmit={handleSubmit(onValid)}>
-              <Title
-                value={todos[0][0].title}
-                {...register("title", {
-                  minLength: {
-                    value: 1,
-                    message: "최소 1글자 이상 입력해주세요",
-                  },
-                })}
-                placeholder={
-                  todos[0][0].title ? todos[0][0].title : "입력해주세요"
-                }
-              />
-              <Content
-                value={todos[0][0].content}
-                {...register("content", {
-                  minLength: {
-                    value: 1,
-                    message: "최소 1글자 이상 입력해주세요",
-                  },
-                })}
-                // placeholder={
-                //   todos[0][0].content ? todos[0][0].content : "입력해주세요"
-                // }
-              />
+            <DetailForm>
+              <Title>
+                {todos[0][0].title ? todos[0][0].title : "입력해주세요"}
+              </Title>
+              <Content>
+                {todos[0][0].content ? todos[0][0].content : "입력해주세요"}
+              </Content>
             </DetailForm>
           </DetailCon>
         </Container>

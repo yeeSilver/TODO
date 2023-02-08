@@ -10,8 +10,9 @@ import TodoDetailPage from "../../pages/todo/TodoDetailPage";
 import Checkbox from "../common/Checkbox";
 import DateDiv from "../common/DateDiv";
 import TodoDetailForm from "../todoDetails/TodoDetailForm";
-import DelSvg from "../../assets/svg/remove.svg";
+
 import TodoForm from "./TodoForm";
+import { delTodo } from "../../hooks/mutation/todo/useDelTodo";
 
 interface IPropsTypes {
   todorecoils: IToDoState[];
@@ -85,30 +86,19 @@ const Board = styled(ListStyle)`
   }
 `;
 
-const DelBtn = styled.button`
-  background: transparent;
-  border: none;
-  border-radius: 5px;
-  font-size: 20px;
-
-  &:hover {
-    cursor: pointer;
-  }
-  img {
-    width: 24px;
-    height: 24px;
-    background-color: #e69c9cd8;
-  }
-  img:hover {
-    background-color: #f07373d7;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  }
-`;
-
 const Title = styled.p`
   font-size: 20px;
   font-family: "LINESeedKR-Bd";
 `;
+
+export interface TodoListProps {
+  title: string;
+  content: string;
+  id: string;
+  createAt: string;
+  updatedAt: string;
+  onDelClicked?: () => void | undefined;
+}
 
 const TodoList = () => {
   const { isLoading, data: toDoList } = useQuery(["todos"], getTodos, {
@@ -116,10 +106,18 @@ const TodoList = () => {
   });
 
   const todoSave = useSetRecoilState<IToDoState[]>(toDoState);
-  const todos = useRecoilState(toDoState);
-  const [isDelClicked, setIsDelClicked] = useState<boolean>(false);
-  const onDelClicked = () => {
-    setIsDelClicked((prev) => !prev);
+  // const todos = useRecoilState(toDoState);
+  // const [isDelClicked, setIsDelClicked] = useState<boolean>(false);
+
+  const onClickDelete = (id: string) => {
+    // eslint-disable-next-line no-restricted-globals
+    // const resDel = confirm("해당 항목을 정말 삭제하시겠습니까?");
+    // if (resDel) {
+    //   mutate(id);
+    // }
+    // // if (resDel) {
+    //   console.log(resDel);
+    // }
   };
   const [isClicked, setisClicked] = useState(false);
 
@@ -159,10 +157,6 @@ const TodoList = () => {
             >
               {toDoList?.data?.data.map((todo) => (
                 <ConList key={todo.id} id={todo.id}>
-                  <DelBtn onClick={onDelClicked}>
-                    <img src={DelSvg} alt="delete button" />
-                  </DelBtn>
-
                   <Board
                     key={todo.id}
                     {...todo}
@@ -184,9 +178,9 @@ const TodoList = () => {
           </TodoCon>
           <DetailCon>
             {isClicked && (
-              // <Link to={`details/${todos[0][0].id}`}>
               <TodoDetailForm />
-
+              // <Link to={`details/${todos[0][0].id}`}>
+              //   <TodoDetailForm />
               // </Link>
             )}
           </DetailCon>
