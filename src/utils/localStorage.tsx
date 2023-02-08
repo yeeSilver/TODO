@@ -5,7 +5,7 @@ class Token {
     return localStorage.getItem(key); //key item 값 받아옴
   }
 
-  public setToken(key: string, token: any) {
+  public setToken(key: string, token: string) {
     localStorage.setItem(key, token); //key item 보관
   }
 

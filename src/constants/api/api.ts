@@ -4,5 +4,5 @@ export const AuthAPI = {
 };
 
 export const TodoAPI = {
-  CREATE: `${process.env.REACT_APP_BASE_URL}/todos`,
+  TODOS: `${process.env.REACT_APP_BASE_URL}/todos`,
 };

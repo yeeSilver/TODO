@@ -1,6 +1,10 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
+import { IToDoState, toDoState } from "../../atoms/recoil";
+import EditSvg from "../../assets/svg/edit.svg";
+import { Link, Outlet, useParams } from "react-router-dom";
 
 interface ITodoForm {
   title: string;
@@ -15,7 +19,8 @@ const Container = styled.div`
   height: 100%;
 `;
 const DetailCon = styled.div`
-  position: relative;
+  display: flex;
+  flex-direction: column;
   width: 80%;
   height: 80%;
   border-radius: 20px;
@@ -29,7 +34,7 @@ const DetailForm = styled.form`
   justify-content: center;
   align-items: center;
   gap: 5%;
-  padding: 10% 0;
+  /* padding: 10% 0; */
   height: 85%;
 `;
 
@@ -55,57 +60,101 @@ const Content = styled.textarea`
 `;
 
 const EditBtn = styled.button`
-  position: absolute;
-  top: 5%;
-  right: 5%;
   padding: 10px;
   border: none;
   border-radius: 10px;
-  border-color: #a5d0f6;
   font-size: 1.2rem;
   color: #fff;
-  box-shadow: 0 0 40px 40px #a5d0f6 inset, 0 0 0 0 #3498db;
+  background-color: #a5d0f6;
+
   transition: all 150ms ease-in-out;
   &:hover {
     cursor: pointer;
-    color: #3498db;
-    box-shadow: 0 0 10px 0 #3498db inset, 0 0 10px 4px #3498db;
+  }
+
+  &:active {
+    box-shadow: #69869e 3px 3px 6px 0px inset,
+      rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+    transform: translateY(2px);
+  }
+  img {
+    width: 30px;
+    height: 30px;
   }
 `;
 
+const DetailHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+`;
 const CreateDate = styled.p`
-  position: absolute;
-  top: 5%;
-  left: 5%;
   margin-bottom: 30px;
   font-family: "Lobster";
   color: #716e6e;
 `;
 export default function TodoDetailForm() {
-  const { handleSubmit, register } = useForm<ITodoForm>();
+  const todos = useRecoilState(toDoState);
+
+  const {
+    handleSubmit,
+    register,
+    watch,
+    formState: { isValid },
+  } = useForm<ITodoForm>();
   const onValid = () => {
     console.log("editbtn");
   };
+
   return (
-    <Container>
-      <DetailCon>
-        <CreateDate>2023-02-02</CreateDate>
-        <DetailForm onSubmit={handleSubmit(onValid)}>
-          <Title
-            {...register("title", {
-              minLength: { value: 1, message: "최소 1글자 이상 입력해주세요" },
-            })}
-            placeholder="제목을 입력해주세요"
-          />
-          <Content
-            {...register("content", {
-              minLength: { value: 1, message: "최소 1글자 이상 입력해주세요" },
-            })}
-            placeholder="내용을 입력해주세요"
-          />
-        </DetailForm>
-        <EditBtn>EDIT</EditBtn>
-      </DetailCon>
-    </Container>
+    <>
+      {todos[0][0].updatedAt === undefined ? (
+        <div> Loading... </div>
+      ) : (
+        <Container>
+          <DetailCon>
+            <DetailHeader>
+              <CreateDate>
+                {todos[0][0].updatedAt.slice(0, 10)
+                  ? todos[0][0].updatedAt.slice(0, 10)
+                  : "입력해주세요"}
+              </CreateDate>
+              <Link to={`/details/${todos[0][0].id}`}>
+                <EditBtn id={`${todos[0][0].id}`}>
+                  <img src={EditSvg} alt="edit button" />
+                </EditBtn>
+                <Outlet />
+              </Link>
+            </DetailHeader>
+            <DetailForm onSubmit={handleSubmit(onValid)}>
+              <Title
+                value={todos[0][0].title}
+                {...register("title", {
+                  minLength: {
+                    value: 1,
+                    message: "최소 1글자 이상 입력해주세요",
+                  },
+                })}
+                placeholder={
+                  todos[0][0].title ? todos[0][0].title : "입력해주세요"
+                }
+              />
+              <Content
+                value={todos[0][0].content}
+                {...register("content", {
+                  minLength: {
+                    value: 1,
+                    message: "최소 1글자 이상 입력해주세요",
+                  },
+                })}
+                // placeholder={
+                //   todos[0][0].content ? todos[0][0].content : "입력해주세요"
+                // }
+              />
+            </DetailForm>
+          </DetailCon>
+        </Container>
+      )}
+    </>
   );
 }

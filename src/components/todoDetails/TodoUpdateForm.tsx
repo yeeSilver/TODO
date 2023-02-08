@@ -7,8 +7,11 @@ import EditSvg from "../../assets/svg/edit.svg";
 import useCreateTodo from "../../hooks/mutation/todo/useCreateTodo";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import useUpdateTodo from "../../hooks/mutation/todo/useUpdateTodo";
-import { getTodosById } from "../../hooks/mutation/todo/useGetTodos";
-import { useQuery } from "@tanstack/react-query";
+import {
+  fetchTodos,
+  getTodosById,
+} from "../../hooks/mutation/todo/useGetTodos";
+import { useQueries, useQuery } from "@tanstack/react-query";
 import { TodoAPI } from "../../constants/api/api";
 import client from "../../constants/axios/axios";
 
@@ -19,9 +22,19 @@ interface ITodoForm {
 
 interface IUpdate {
   data: ITodoForm;
-  id: string | undefined;
+  id: string;
+}
+interface ITodoResponse {
+  title: string;
+  content: string;
+  id: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
+interface IGetTodos {
+  data: ITodoResponse[];
+}
 const Modal = styled.div`
   position: fixed;
   top: 0;
@@ -109,34 +122,29 @@ const Btn = styled.button`
   }
 `;
 
-interface ITodoResponse {
-  title: string;
-  content: string;
-  id: string;
-  createdAt: string;
-  updatedAt: string;
-}
-
-interface IGetTodos {
-  data: ITodoResponse[];
-}
-
 export default function TodoUpdateForm() {
   // const id = useParams().id as string;
   const todos = useRecoilState(toDoState);
-  const id = todos[0][0].id as string | undefined;
+  const id = todos[0][0].id as string;
 
-  const { isLoading, data: todosById } = useQuery(["todosById"], () =>
-    getTodosById(id)
-  );
+  // const { isLoading, data: todosById } = useQuery(["todosById"], () =>
+  //   // getTodosById(id)
+  //   fetch(`${client.get<IGetTodos>(`${TodoAPI.TODOS}/${id}`)}`).then((res) =>
+  //     res.json()
+  //   )
+  // );
 
   // console.log(isLoading ? isLoading : todosById?.data?.data[0].content);
   // console.log(todosById?.data.data.map((el) => el.title));
+  const { isLoading, data: todosById } = useQuery<ITodoResponse>(
+    ["getTodos", id],
+    () => fetchTodos(id).then((res) => res.clone().json())
+  );
 
   const {
     register,
     handleSubmit,
-    formState: { isValid },
+    formState: { isValid, errors },
   } = useForm<ITodoForm>({});
   const navigate = useNavigate();
   const closeEdit = () => {
@@ -145,20 +153,24 @@ export default function TodoUpdateForm() {
   };
   const { mutate } = useUpdateTodo();
 
-  const onUpdate = ({ data, id }: IUpdate) => {
-    console.log("update");
-    mutate({ data, id });
-  };
-  const onValid = ({ title, content }: ITodoForm) => {
-    // closeEdit();
-    console.log("onValid");
-    const data = { title, content };
-    onUpdate({ data, id });
-    closeEdit();
+  // const onUpdate = ({ data, id }: IUpdate) => {
+  //   console.log("update");
+  //   mutate({ data, id });
+  // };
+  // const onValid = ({ title, content }: ITodoForm) => {
+  //   // closeEdit();
+  //   console.log("onValid");
+  //   const data = { title, content };
+  //   onUpdate({ data, id });
+  //   closeEdit();
+  // };
+
+  const onValid = () => {
+    console.log("title");
   };
 
-  const inValid = ({ title, content }: ITodoForm) => {
-    console.log(title, content);
+  const oninvalid = () => {
+    console.log("oninvalid");
   };
 
   return (
@@ -166,10 +178,10 @@ export default function TodoUpdateForm() {
       {isLoading ? (
         <div>로딩중 입니다.</div>
       ) : (
-        <AddForm onSubmit={handleSubmit(inValid)}>
-          {/* <AddForm> */}
+        <AddForm onSubmit={handleSubmit(onValid, oninvalid)}>
           <BackBtn onClick={closeEdit}>❌</BackBtn>
-          <FormCon>
+          {/* <AddForm> */}
+          {/* <FormCon>
             <Text>TITLE</Text>
             <Input
               {...register("title" || "", {
@@ -196,13 +208,21 @@ export default function TodoUpdateForm() {
                 todos[0][0].content ? todos[0][0].content : "입력해주세요"
               }
             />
-          </FormCon>
+          </FormCon> */}
+          <input
+            {...register("title",  error={formState.errors?.content ? true : false},{
+              required: true,
+            })}
+            
+            placeholder={todos[0][0].title}
+          />
+          <button type="submit">good</button>
 
-          <div style={{ textAlign: "center" }}>
+          {/* <div style={{ textAlign: "center" }}>
             <Btn type="submit" disabled={!isValid}>
               Update
             </Btn>
-          </div>
+          </div> */}
         </AddForm>
       )}
     </Modal>

@@ -1,12 +1,21 @@
-import { atom } from "recoil";
+import { atom, selector } from "recoil";
 export interface IToDoState {
-  title: string;
   content: string;
+  createdAt: string;
   id: string;
-  createAt: string;
+  // id: string | undefined;
+  title: string;
   updatedAt: string;
 }
 export const toDoState = atom<IToDoState[]>({
-  key: "toDo",
+  key: "toDoState",
   default: [],
+});
+
+export interface IOpenCreate {
+  openCreate: boolean;
+}
+export const openCreateModal = atom({
+  key: "openCreate",
+  default: false,
 });

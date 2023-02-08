@@ -3,7 +3,7 @@ import TodoList from "../../components/todo/TodoList";
 
 export default function TodoListPage() {
   return (
-    <div>
+    <div style={{ flexBasis: "30%" }}>
       <TodoList />
     </div>
   );

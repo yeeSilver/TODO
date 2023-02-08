@@ -36,12 +36,12 @@ const useCreateTodo = () => {
 
   return useMutation(createRequest, {
     onSuccess: (data: AxiosResponse<ICreateTodo>) => {
-      // navigate(`/todos/${data.data.id}`);
+      navigate(`/`);
       console.log(data);
     },
     onError: (error) => {
       alert(error);
-      navigate(`/auth`);
+      navigate(`/auth/login`);
       console.log(error);
     },
   });
