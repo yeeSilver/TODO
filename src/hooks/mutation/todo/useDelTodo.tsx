@@ -19,11 +19,11 @@ const useDelTodo = () => {
 
   return useMutation(delRequest, {
     onSuccess: (data: AxiosResponse<IDelResponse>) => {
-      navigate("/");
+      navigate("/todos");
     },
     onError: (error) => {
       alert(error);
-      navigate(`/auth/login`);
+      navigate(`/`);
       console.log(error);
     },
   });

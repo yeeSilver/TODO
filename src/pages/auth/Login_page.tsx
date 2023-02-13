@@ -50,7 +50,6 @@ export default function LoginPage() {
   const navigate = useNavigate();
   const onGoSignupPage = () => {
     navigate(`signup`);
-    console.log("btnOn");
   };
 
   return (

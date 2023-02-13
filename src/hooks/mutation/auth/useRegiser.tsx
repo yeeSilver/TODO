@@ -29,7 +29,7 @@ const useRegister = () => {
       console.log("good");
       token.setToken("token", data.token);
       alert(data.message);
-      navigate("/");
+      navigate("/todos");
     },
     onError: (error) => {
       console.log(error);

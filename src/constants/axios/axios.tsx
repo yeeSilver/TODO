@@ -47,7 +47,7 @@ client.interceptors.response.use(
     console.log(error.response?.data.details);
     // console.log(error);
     alert("토큰이 유효하지 않아, 로그인 페이지로 돌아갑니다.");
-    navigate("/auth/signin");
+    navigate("/");
     return Promise.reject(error);
   }
 );

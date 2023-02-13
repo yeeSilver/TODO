@@ -31,7 +31,7 @@ const useLogin = () => {
   return useMutation(loginRequest, {
     onSuccess: (loginData: AxiosResponse<ILoginResponse>) => {
       token.setToken(ACCESS_TOKEN_KEY, loginData.data.token);
-      navigate(`/`);
+      navigate(`/todos`);
     },
     onError: (error) => {
       console.log(error);

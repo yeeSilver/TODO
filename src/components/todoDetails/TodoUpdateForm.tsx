@@ -16,14 +16,19 @@ import { TodoAPI } from "../../constants/api/api";
 import client from "../../constants/axios/axios";
 
 interface ITodoForm {
-  title: string | undefined;
-  content: string | undefined;
+  title: string;
+  content: string;
 }
 
 interface IUpdate {
+  id: string | undefined;
   data: ITodoForm;
-  id: string;
 }
+
+interface IUpdateProps {
+  onUpdate: (data: object, id: string) => void;
+}
+
 interface ITodoResponse {
   title: string;
   content: string;
@@ -123,22 +128,32 @@ const Btn = styled.button`
 `;
 
 export default function TodoUpdateForm() {
+  const todos = useRecoilState(toDoState);
   const {
     register,
     handleSubmit,
     formState: { isValid },
-  } = useForm<ITodoForm>();
+  } = useForm<ITodoForm>({
+    defaultValues: {
+      title: `${todos[0][0].title}`,
+      content: `${todos[0][0].content}`,
+    },
+  });
   const navigate = useNavigate();
   const closeEdit = () => {
-    navigate(-1);
+    navigate("/todos");
   };
+  const { mutate } = useUpdateTodo();
 
   const onValid = ({ title, content }: ITodoForm) => {
-    console.log(title, content);
+    const data = { title: title, content: content };
+    const id = todos[0][0].id;
+    onUpdate({ data, id });
+    // console.log(title, content);
   };
-
-  const oninvalid = () => {
-    console.log("oninvalid");
+  const onUpdate = ({ data, id }: IUpdate) => {
+    mutate({ data, id });
+    console.log("실험");
   };
 
   return (

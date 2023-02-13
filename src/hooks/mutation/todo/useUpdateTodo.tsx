@@ -3,6 +3,8 @@ import { useMutation } from "@tanstack/react-query";
 import { TodoAPI } from "../../../constants/api/api";
 import client from "../../../constants/axios/axios";
 import { useNavigate } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
+import { IToDoState, toDoState } from "../../../atoms/recoil";
 
 interface ITodoForm {
   title: string;
@@ -11,13 +13,13 @@ interface ITodoForm {
 
 interface IUpdate {
   data: ITodoForm;
-  id: string;
+  id: string | undefined;
 }
 interface ITodoResponse {
   title: string;
   content: string;
   id: string;
-  createAt: string;
+  createdAt: string;
   updatedAt: string;
 }
 
@@ -27,7 +29,8 @@ interface ICreateTodo {
 
 const useUpdateTodo = () => {
   const navigate = useNavigate();
-  //분리해야 할 듯
+  const todoSave = useSetRecoilState<IToDoState[]>(toDoState);
+
   const updateRequest = ({ data, id }: IUpdate) =>
     client.put<ICreateTodo>(`${TodoAPI.TODOS}/${id}`, {
       title: data.title,
@@ -36,12 +39,20 @@ const useUpdateTodo = () => {
 
   return useMutation(updateRequest, {
     onSuccess: (data: AxiosResponse<ICreateTodo>) => {
-      navigate(`/`);
-      console.log(data);
+      navigate(`/todos`);
+      todoSave(() => [
+        {
+          content: data.data.data.content,
+          createdAt: data.data.data.createdAt,
+          id: data.data.data.id,
+          title: data.data.data.title,
+          updatedAt: data.data.data.updatedAt,
+        },
+      ]);
     },
     onError: (error) => {
       alert(error);
-      navigate(`/auth/signin`);
+      navigate(`/`);
       console.log(error);
     },
   });

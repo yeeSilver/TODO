@@ -8,6 +8,7 @@ import { Link, Outlet, useParams } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import useDelTodo, { delTodo } from "../../hooks/mutation/todo/useDelTodo";
 import DelSvg from "../../assets/svg/remove.svg";
+import TodoUpdateForm from "./TodoUpdateForm";
 
 interface ITodoForm {
   title: string;
@@ -117,9 +118,18 @@ export default function TodoDetailForm() {
       onDelete();
     }
   };
+  const {
+    register,
+    handleSubmit,
+    formState: { isValid },
+  } = useForm();
 
   const onDelete = () => {
     mutate(id);
+  };
+
+  const onValid = () => {
+    console.log("onvalid");
   };
   return (
     <>
@@ -137,11 +147,10 @@ export default function TodoDetailForm() {
                   ? todos[0][0].updatedAt.slice(0, 10)
                   : "입력해주세요"}
               </CreateDate>
-              <Link to={`/details/${todos[0][0].id}`}>
+              <Link to={`details/${todos[0][0].id}`}>
                 <EditBtn>
                   <img src={EditSvg} alt="edit button" />
                 </EditBtn>
-                <Outlet />
               </Link>
             </DetailHeader>
             <DetailForm>
@@ -153,6 +162,8 @@ export default function TodoDetailForm() {
               </Content>
             </DetailForm>
           </DetailCon>
+          {/* <TodoUpdateForm /> */}
+          <Outlet />
         </Container>
       )}
     </>

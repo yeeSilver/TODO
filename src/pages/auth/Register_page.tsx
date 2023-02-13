@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import bgImg from "../../assets/img/pinkBg.jpg";
@@ -53,6 +54,11 @@ const Img = styled.div`
 `;
 
 export default function RegisterPage() {
+  const navigate = useNavigate();
+  const onGoLoginPage = () => {
+    navigate("/");
+  };
+
   return (
     <div>
       <Container>
@@ -75,6 +81,7 @@ export default function RegisterPage() {
                 Already have an account?
               </span>
               <span
+                onClick={onGoLoginPage}
                 style={{
                   color: "orange",
                   fontSize: "12px",

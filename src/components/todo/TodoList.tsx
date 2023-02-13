@@ -13,6 +13,7 @@ import TodoDetailForm from "../todoDetails/TodoDetailForm";
 
 import TodoForm from "./TodoForm";
 import { delTodo } from "../../hooks/mutation/todo/useDelTodo";
+import { useForm } from "react-hook-form";
 
 interface IPropsTypes {
   todorecoils: IToDoState[];
@@ -119,6 +120,7 @@ const TodoList = () => {
     //   console.log(resDel);
     // }
   };
+
   const [isClicked, setisClicked] = useState(false);
 
   // const todos = useRecoilState(toDoState);
@@ -176,14 +178,7 @@ const TodoList = () => {
             </CreateBtn>
             {openCreate && <TodoForm />}
           </TodoCon>
-          <DetailCon>
-            {isClicked && (
-              <TodoDetailForm />
-              // <Link to={`details/${todos[0][0].id}`}>
-              //   <TodoDetailForm />
-              // </Link>
-            )}
-          </DetailCon>
+          <DetailCon>{isClicked && <TodoDetailForm />}</DetailCon>
         </Container>
       )}
     </div>
