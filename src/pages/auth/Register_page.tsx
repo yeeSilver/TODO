@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import bgImg from "../../assets/img/pinkBg.jpg";
-import RegisterForm from "../../components/auth/Register_form";
+import RegisterForm from "../../Auth/components/Register_form";
 
 const Container = styled.div`
   display: flex;

@@ -1,19 +1,11 @@
-import {
-  BrowserRouter,
-  Navigate,
-  Outlet,
-  Route,
-  Routes,
-} from "react-router-dom";
-import LoginForm from "./components/auth/Login_form";
-import Test from "./components/todoDetails/Test";
-import TodoDetailForm from "./components/todoDetails/TodoDetailForm";
-import TodoUpdateForm from "./components/todoDetails/TodoUpdateForm";
-import TodoEditForm from "./components/todoDetails/TodoUpdateForm";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+
+import TodoUpdateForm from "./Todo/TodoModal/components/todoUpdate/TodoUpdateForm";
+
 import LoginPage from "./pages/auth/Login_page";
 import RegisterPage from "./pages/auth/Register_page";
 import TodoPage from "./pages/todo/TodoPage";
-import Authenticate from "./router/router";
+
 function Router() {
   return (
     <BrowserRouter>

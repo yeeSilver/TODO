@@ -1,6 +1,6 @@
 import { useNavigate, useMatch } from "react-router-dom";
 import styled from "styled-components";
-import LoginForm from "../../components/auth/Login_form";
+import LoginForm from "../../Auth/components/Login_form";
 import bgImg from "../../assets/img/pinkBg.jpg";
 
 const Container = styled.div`

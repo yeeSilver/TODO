@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import TodoForm from "../../components/todo/TodoForm";
-import UpdateTodoModal from "../../hooks/modal/UpdateTodoModal";
+import TodoForm from "../../Todo/TodoModal/components/todoAdd/TodoForm";
+import UpdateTodoModal from "../../Todo/TodoModal/components/UpdateTodoModal";
 import TodoDetailPage from "./TodoDetailPage";
 import TodoListPage from "./TodoListPage";
 
@@ -15,9 +15,7 @@ const ConTodoPage = styled.div`
 export default function TodoPage() {
   return (
     <ConTodoPage>
-      {/* <UpdateTodoModal /> */}
       <TodoListPage />
-      {/* <TodoDetailPage /> */}
     </ConTodoPage>
   );
 }

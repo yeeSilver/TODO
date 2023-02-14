@@ -1,6 +1,6 @@
 import React from "react";
-import TodoForm from "../../components/todo/TodoForm";
-import TodoDetailForm from "../../components/todoDetails/TodoDetailForm";
+import TodoForm from "../../Todo/TodoModal/components/todoAdd/TodoForm";
+import TodoDetailForm from "../../Todo/TodoDetail/components/TodoDetailForm";
 
 export default function TodoDetailPage() {
   return (

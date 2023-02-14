@@ -1,5 +1,5 @@
 import axios from "axios";
-import { baseURL } from "../constants/axios/axios";
+import { baseURL } from "./axios";
 import { ACCESS_TOKEN_KEY, REQUEST_KEY } from "../constants/token";
 import token from "./localStorage";
 
