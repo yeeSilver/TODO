@@ -13,7 +13,7 @@ import {
   Modal,
   Textarea,
   Text,
-} from "./TodoUpdate.style";
+} from "./todoUpdate.style";
 import { IUpdate } from "../../../types/hooktypes";
 
 export default function TodoUpdateForm() {
@@ -30,7 +30,7 @@ export default function TodoUpdateForm() {
   });
   const navigate = useNavigate();
   const closeEdit = () => {
-    navigate("/todos");
+    navigate("/");
   };
   const { mutate } = useUpdateTodo();
 
@@ -38,11 +38,9 @@ export default function TodoUpdateForm() {
     const data = { title: title, content: content };
     const id = todos[0][0].id;
     onUpdate({ data, id });
-    // console.log(title, content);
   };
   const onUpdate = ({ data, id }: IUpdate) => {
     mutate({ data, id });
-    console.log("실험");
   };
 
   return (

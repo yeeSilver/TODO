@@ -13,7 +13,7 @@ import {
   Modal,
   Textarea,
   Text,
-} from "./TodoForm.style";
+} from "./todoForm.style";
 
 export default function TodoForm() {
   const {

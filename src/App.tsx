@@ -3,12 +3,13 @@ import "./assets/fonts/font.css";
 
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import Router from "./Router";
+import { RouterProvider } from "react-router-dom";
 
 function App() {
   return (
     <div className="App">
       <Reset />
-      <Router />
+      <RouterProvider router={Router} />
     </div>
   );
 }

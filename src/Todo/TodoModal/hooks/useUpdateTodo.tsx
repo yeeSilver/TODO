@@ -21,6 +21,7 @@ const useUpdateTodo = () => {
   return useMutation(updateRequest, {
     onSuccess: (data: AxiosResponse<ICreateTodo>) => {
       navigate(`/todos`);
+
       todoSave(() => [
         {
           content: data.data.data.content,

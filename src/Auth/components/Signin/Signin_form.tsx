@@ -1,9 +1,9 @@
 import { useForm } from "react-hook-form";
-import useLogin from "../hooks/useLogin";
-import { IInputForm } from "../types";
-import { Input, LoginBtn, LogInForm } from "./styles/Login.style";
+import useLogin from "../../hooks/useSignin";
+import { IInputForm } from "../../types";
+import { Input, LoginBtn, LogInForm } from "./signin.style";
 
-export default function LoginForm() {
+export default function SigninForm() {
   const {
     register,
     handleSubmit,

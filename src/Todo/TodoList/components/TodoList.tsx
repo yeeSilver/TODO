@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { openCreateModal, toDoState } from "../../atoms/recoil";
 import { getTodos } from "../hooks/useGetTodos";
@@ -15,32 +15,23 @@ import {
   DetailCon,
   Title,
   TodoCon,
-} from "./TodoList.style";
+} from "./todoList.style";
 import { IToDoState } from "../../types/types";
+import SetRecoilTodos from "../hooks/recoils/SetRecoilTodos";
 
 const TodoList = () => {
-  const { isLoading, data: toDoList } = useQuery(["todos"], getTodos, {
-    refetchInterval: 5000,
-  });
-
-  const todoSave = useSetRecoilState<IToDoState[]>(toDoState);
-
+  const { isLoading, data: toDoList } = useQuery(["todos"], getTodos);
+  // console.log(toDoList?.data.data[0])
   const [isClicked, setisClicked] = useState(false);
-
-  // const todos = useRecoilState(toDoState);
+  const todoSave = useSetRecoilState<IToDoState[]>(toDoState);
+  // SetRecoilTodos(toDoList?.data.data[0], todoSave);
   const onSaveDetailTodos = (toDodetails: IToDoState) => {
+    // console.log(Board.key);
     setisClicked(true);
-
-    todoSave(() => [
-      {
-        content: toDodetails.content,
-        createdAt: toDodetails.createdAt,
-        id: toDodetails.id,
-        title: toDodetails.title,
-        updatedAt: toDodetails.updatedAt,
-      },
-    ]);
+    SetRecoilTodos(toDodetails, todoSave);
   };
+
+  const toggleActive = () => {};
 
   const [openCreate, setOpenCreate] = useRecoilState<boolean>(openCreateModal);
   const onOpenModal = () => {
@@ -61,11 +52,10 @@ const TodoList = () => {
                 height: "60%",
               }}
             >
-              {toDoList?.data?.data.map((todo) => (
-                <ConList key={todo.id} id={todo.id}>
+              <ConList>
+                {toDoList?.data?.data.map((todo) => (
                   <Board
                     key={todo.id}
-                    {...todo}
                     onClick={() => {
                       onSaveDetailTodos({
                         ...todo,
@@ -74,8 +64,8 @@ const TodoList = () => {
                   >
                     <Title>{todo.title}</Title>
                   </Board>
-                </ConList>
-              ))}
+                ))}
+              </ConList>
             </div>
             <CreateBtn as="button" onClick={onOpenModal}>
               NEW

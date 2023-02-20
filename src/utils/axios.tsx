@@ -26,7 +26,6 @@ client.interceptors.request.use(
     const accessToken = token.getToken(ACCESS_TOKEN_KEY);
     if (accessToken) {
       config.headers = config.headers ?? {};
-      // config.headers.Authorization = token;
       config.headers.Authorization = accessToken;
     }
     return config;
@@ -45,9 +44,9 @@ client.interceptors.response.use(
   (error: AxiosError<IIntError>) => {
     const navigate = useNavigate();
     console.log(error.response?.data.details);
-    // console.log(error);
+
     alert("토큰이 유효하지 않아, 로그인 페이지로 돌아갑니다.");
-    navigate("/");
+    navigate("signin");
     return Promise.reject(error);
   }
 );

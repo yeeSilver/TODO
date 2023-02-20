@@ -1,10 +1,6 @@
-import React from "react";
-import { useRecoilState, useSetRecoilState } from "recoil";
-
-import { IToDoState } from "../../types/types";
-
-function SetRecoilTodos(toDodetails: IToDoState, todoSave: any) {
-  todoSave(() => [
+import { IToDoState } from "../../../types/types";
+const SetRecoilTodos = (toDodetails: IToDoState, todoSave: any) => {
+  return todoSave(() => [
     {
       title: toDodetails.title,
       content: toDodetails.content,
@@ -13,6 +9,6 @@ function SetRecoilTodos(toDodetails: IToDoState, todoSave: any) {
       updatedAt: toDodetails.updatedAt,
     },
   ]);
-}
+};
 
 export default SetRecoilTodos;

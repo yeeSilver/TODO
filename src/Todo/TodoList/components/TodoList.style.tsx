@@ -24,6 +24,7 @@ export const DetailCon = styled.section`
 export const ConList = styled.section`
   display: flex;
   justify-content: center;
+  flex-direction: column;
   align-items: center;
 `;
 export const ListStyle = styled.div`
@@ -35,7 +36,8 @@ export const ListStyle = styled.div`
   margin: 10px;
   border: none;
   border-radius: 5px;
-  background-color: #82c4fe;
+  /* background-color: #82c4fe; */
+  background-color: aliceblue;
   font-size: 24px;
   font-family: "Changa One";
   &:hover {
@@ -44,7 +46,7 @@ export const ListStyle = styled.div`
 `;
 export const CreateBtn = styled(ListStyle)`
   transition: box-shadow 300ms ease-in-out, color 300ms ease-in-out;
-  background-color: aliceblue;
+
   &:hover {
     box-shadow: 0 0 40px 40px #82c4fe inset;
     cursor: pointer;
@@ -54,7 +56,6 @@ export const CreateBtn = styled(ListStyle)`
   }
 `;
 export const Board = styled(ListStyle)`
-  background-color: aliceblue;
   justify-content: space-between;
   overflow: auto;
   width: 10rem;

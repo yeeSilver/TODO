@@ -19,7 +19,7 @@ interface ILoginResponse {
 }
 //로그인 토큰을 받아와서 일치하면 todo페이지로 넘기는 작업
 
-const useLogin = () => {
+const useSignin = () => {
   //분리해야 할 듯
   const navigate = useNavigate();
   const loginRequest = ({ inputEmail, inputPw }: IForm) =>
@@ -39,4 +39,4 @@ const useLogin = () => {
   });
 };
 
-export default useLogin;
+export default useSignin;

@@ -60,13 +60,9 @@ export const EditBtn = styled.button`
   transition: all 150ms ease-in-out;
   &:hover {
     cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   }
 
-  &:active {
-    box-shadow: #69869e 3px 3px 6px 0px inset,
-      rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
-    transform: translateY(2px);
-  }
   img {
     width: 30px;
     height: 30px;
@@ -76,7 +72,6 @@ export const DelBtn = styled(EditBtn)`
   &:hover {
     cursor: pointer;
     background-color: #f07373d7;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   }
   background-color: #e69c9cd8;
 `;

@@ -1,9 +1,9 @@
 import { useForm } from "react-hook-form";
-import useRegister from "../hooks/useRegiser";
-import { IAuthForm } from "../types";
-import { AuthForm, CreateBtn, ErrorText, Input } from "./styles/Register.style";
+import useRegister from "../../hooks/useSignup";
+import { IAuthForm } from "../../types";
+import { AuthForm, CreateBtn, ErrorText, Input } from "./signup.style";
 
-export default function RegisterForm() {
+export default function SignupForm() {
   const {
     register,
     handleSubmit,

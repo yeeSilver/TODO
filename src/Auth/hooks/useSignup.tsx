@@ -16,7 +16,7 @@ interface IRegisterResponse {
   token: string;
 }
 
-const useRegister = () => {
+const useSignup = () => {
   console.log("useRegister");
   const navigate = useNavigate();
   const registerRequest = ({ email, password }: IRegisterForm) =>
@@ -37,4 +37,4 @@ const useRegister = () => {
   });
 };
 
-export default useRegister;
+export default useSignup;

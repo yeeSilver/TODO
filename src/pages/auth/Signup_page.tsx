@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import bgImg from "../../assets/img/pinkBg.jpg";
-import RegisterForm from "../../Auth/components/Register_form";
+import RegisterForm from "../../Auth/components/Signup/Signup_form";
 
 const Container = styled.div`
   display: flex;
@@ -21,12 +21,11 @@ const Section = styled.div`
     rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
 `;
 const CreateCon = styled.div`
-  padding: 20px;
-
   display: flex;
   flex-direction: column;
   margin: 0 auto;
   width: 100%;
+  padding: 20px;
 `;
 const Text = styled.div`
   display: flex;
@@ -53,7 +52,7 @@ const Img = styled.div`
   }
 `;
 
-export default function RegisterPage() {
+export default function SignupPage() {
   const navigate = useNavigate();
   const onGoLoginPage = () => {
     navigate("/");

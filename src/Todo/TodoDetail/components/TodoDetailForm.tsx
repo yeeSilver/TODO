@@ -14,7 +14,7 @@ import {
   DetailHeader,
   EditBtn,
   Title,
-} from "./TodoDetailForm.style";
+} from "./todoDetailForm.style";
 
 export default function TodoDetailForm() {
   const todos = useRecoilState(toDoState);
@@ -50,7 +50,7 @@ export default function TodoDetailForm() {
                   ? todos[0][0].updatedAt.slice(0, 10)
                   : "입력해주세요"}
               </CreateDate>
-              <Link to={`details/${todos[0][0].id}`}>
+              <Link to={`${todos[0][0].id}`}>
                 <EditBtn>
                   <img src={EditSvg} alt="edit button" />
                 </EditBtn>

@@ -1,7 +1,7 @@
 import { useNavigate, useMatch } from "react-router-dom";
 import styled from "styled-components";
-import LoginForm from "../../Auth/components/Login_form";
 import bgImg from "../../assets/img/pinkBg.jpg";
+import SigninForm from "../../Auth/components/Signin/Signin_form";
 
 const Container = styled.div`
   display: flex;
@@ -46,10 +46,10 @@ const Img = styled.div`
   }
 `;
 
-export default function LoginPage() {
+export default function SigninPage() {
   const navigate = useNavigate();
   const onGoSignupPage = () => {
-    navigate(`signup`);
+    navigate(`/signup`);
   };
 
   return (
@@ -63,7 +63,7 @@ export default function LoginPage() {
             <h2>LOG IN</h2>
             <p>Hello! Sign into Your account</p>
           </Text>
-          <LoginForm />
+          <SigninForm />
           <p style={{ color: "grey", fontSize: "8px", marginTop: "15px" }}>
             Don't have an account?
           </p>
