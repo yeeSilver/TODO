@@ -21,8 +21,21 @@ client.defaults.timeout = 2500;
 
 //요청 인터셉터 추가
 client.interceptors.request.use(
-  async (config: AxiosRequestConfig) => {
-    //요청을 보내기 전에 수행할 로직
+  // async (config: AxiosRequestConfig<any>) => {
+  //   //요청을 보내기 전에 수행할 로직
+  //   const accessToken = token.getToken(ACCESS_TOKEN_KEY);
+  //   if (accessToken) {
+  //     config.headers = config.headers ?? {};
+  //     config.headers.Authorization = accessToken;
+  //   }
+  //   return config;
+  // },
+  // (error) => {
+  //   //요청 에러가 발생했을 때 수행할 로직
+  //   console.log(error); //디버깅
+  //   return Promise.reject(error);
+  // }
+  (config) => {
     const accessToken = token.getToken(ACCESS_TOKEN_KEY);
     if (accessToken) {
       config.headers = config.headers ?? {};
