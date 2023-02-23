@@ -30,37 +30,40 @@ export default function SignupForm() {
   return (
     <div>
       <AuthForm onSubmit={handleSubmit(onValid)}>
-        <p>이메일</p>
         <Input
           {...register("email", {
-            required: "올바르지 않는 이메일 형식입니다.",
+            required: "Enter a valid address",
 
             pattern: {
               value: regexEm,
-              message: "이메일 형식을 지켜주세요", // 에러 메세지
+              message: "This is not a valid email format", // 에러 메세지
             },
           })}
-          placeholder="📧 이메일을 입력하세요"
+          placeholder="📧 example@email.com"
         />
         <ErrorText>{errors?.email?.message}</ErrorText>
 
-        <p>비밀번호</p>
         <Input
           {...register("password", {
-            required: "최소 8자 이상 입력해주세요.",
-            minLength: { value: 8, message: "최소 8자 이상 입력해주세요." },
+            required: "Password must be at least 8 characters long",
+            minLength: {
+              value: 8,
+              message: "Password must be at least 8 characters long",
+            },
           })}
-          placeholder="🔐 비밀번호를 입력하세요"
+          placeholder="🔐 Password"
         />
         <ErrorText>{errors?.password?.message}</ErrorText>
 
-        <p>비밀번호 재확인</p>
         <Input
           {...register("confirmedPw", {
-            required: "비밀번호가 일치하지 않습니다.",
-            minLength: { value: 8, message: "최소 8자 이상 입력해주세요." },
+            required: "Password does not match",
+            minLength: {
+              value: 8,
+              message: "Password must be at least 8 characters long",
+            },
           })}
-          placeholder="🔐 비밀번호를 한번 더 입력하세요"
+          placeholder="🔐 Confirm Password"
         />
         <ErrorText>{errors?.confirmedPw?.message}</ErrorText>
 

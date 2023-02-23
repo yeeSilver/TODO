@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { useState, useEffect } from "react";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { openCreateModal, toDoState } from "../../atoms/recoil";
+import { useState } from "react";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { boxClicked, openCreateModal, toDoState } from "../../atoms/recoil";
 import { getTodos } from "../hooks/useGetTodos";
 import DateDiv from "../../../components/DateDiv";
 import TodoDetailForm from "../../TodoDetail/components/TodoDetailForm";
@@ -12,22 +12,26 @@ import {
   ConList,
   Container,
   CreateBtn,
+  DefaultList,
   DetailCon,
   Title,
   TodoCon,
 } from "./todoList.style";
 import { IToDoState } from "../../types/types";
 import SetRecoilTodos from "../hooks/recoils/SetRecoilTodos";
+import Default from "../../TodoDetail/components/Default";
 
 const TodoList = () => {
-  const { isLoading, data: toDoList } = useQuery(["todos"], getTodos);
-  // console.log(toDoList?.data.data[0])
-  const [isClicked, setisClicked] = useState(false);
+  const { isLoading, data: toDoList } = useQuery(["todos"], getTodos, {
+    refetchInterval: 5000,
+  });
+
+  const [isBoxClicked, setisBoxClicked] = useRecoilState<boolean>(boxClicked);
+
   const todoSave = useSetRecoilState<IToDoState[]>(toDoState);
-  // SetRecoilTodos(toDoList?.data.data[0], todoSave);
+
   const onSaveDetailTodos = (toDodetails: IToDoState) => {
-    // console.log(Board.key);
-    setisClicked(true);
+    setisBoxClicked(true);
     SetRecoilTodos(toDodetails, todoSave);
   };
 
@@ -52,27 +56,35 @@ const TodoList = () => {
                 height: "60%",
               }}
             >
-              <ConList>
-                {toDoList?.data?.data.map((todo) => (
-                  <Board
-                    key={todo.id}
-                    onClick={() => {
-                      onSaveDetailTodos({
-                        ...todo,
-                      });
-                    }}
-                  >
-                    <Title>{todo.title}</Title>
-                  </Board>
-                ))}
-              </ConList>
+              {toDoList?.data.data[0] !== undefined ? (
+                <ConList>
+                  {toDoList?.data?.data.map((todo) => (
+                    <Board
+                      key={todo.id}
+                      onClick={() => {
+                        onSaveDetailTodos({
+                          ...todo,
+                        });
+                      }}
+                    >
+                      <Title>{todo.title}</Title>
+                    </Board>
+                  ))}
+                </ConList>
+              ) : (
+                <DefaultList>
+                  <p>Add your TODO!</p>
+                </DefaultList>
+              )}
             </div>
             <CreateBtn as="button" onClick={onOpenModal}>
               NEW
             </CreateBtn>
             {openCreate && <TodoForm />}
           </TodoCon>
-          <DetailCon>{isClicked && <TodoDetailForm />}</DetailCon>
+          <DetailCon>
+            {isBoxClicked ? <TodoDetailForm /> : <Default />}
+          </DetailCon>
         </Container>
       )}
     </div>

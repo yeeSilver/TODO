@@ -16,7 +16,6 @@ const TimeBox = styled.div`
   color: #a5d0f6;
   text-align: center;
   margin-bottom: 15px;
-  /* color: #c81414; */
 `;
 export default function DateDiv() {
   return (

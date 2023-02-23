@@ -1,4 +1,5 @@
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 
 import { openCreateModal } from "../../../atoms/recoil";
@@ -26,9 +27,11 @@ export default function TodoForm() {
     setOpenCreate((prev): boolean => !prev);
   };
   const { mutate } = useCreateTodo();
+  const navigate = useNavigate();
   const onValid = ({ title, content }: ITodoForm) => {
     mutate({ title, content });
     closeModal();
+    navigate("/", { replace: true });
   };
 
   return (

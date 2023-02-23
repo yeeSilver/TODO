@@ -20,7 +20,7 @@ const useUpdateTodo = () => {
 
   return useMutation(updateRequest, {
     onSuccess: (data: AxiosResponse<ICreateTodo>) => {
-      navigate(`/todos`);
+      navigate(`/`);
 
       todoSave(() => [
         {
@@ -34,7 +34,7 @@ const useUpdateTodo = () => {
     },
     onError: (error) => {
       alert(error);
-      navigate(`/`);
+      navigate(`/signin`);
       console.log(error);
     },
   });

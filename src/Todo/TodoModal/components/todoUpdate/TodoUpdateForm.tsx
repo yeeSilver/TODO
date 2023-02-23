@@ -38,6 +38,7 @@ export default function TodoUpdateForm() {
     const data = { title: title, content: content };
     const id = todos[0][0].id;
     onUpdate({ data, id });
+    navigate("/");
   };
   const onUpdate = ({ data, id }: IUpdate) => {
     mutate({ data, id });

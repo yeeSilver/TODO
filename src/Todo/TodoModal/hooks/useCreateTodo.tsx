@@ -21,12 +21,12 @@ const useCreateTodo = () => {
 
   return useMutation(createRequest, {
     onSuccess: (data: AxiosResponse<ICreateTodo>) => {
-      navigate(`/todos`);
+      navigate(`/`);
       console.log(data);
     },
     onError: (error) => {
       alert(error);
-      navigate(`/`);
+      navigate(`/signin`);
       console.log(error);
     },
   });

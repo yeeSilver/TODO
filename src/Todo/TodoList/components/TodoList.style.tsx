@@ -31,7 +31,6 @@ export const ListStyle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-
   padding: 10px;
   margin: 10px;
   border: none;
@@ -43,6 +42,17 @@ export const ListStyle = styled.div`
   &:hover {
     cursor: pointer;
   }
+`;
+
+export const DefaultList = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  color: #82c4fe;
+  font-family: "Changa One";
+  font-size: 1.5rem;
 `;
 export const CreateBtn = styled(ListStyle)`
   transition: box-shadow 300ms ease-in-out, color 300ms ease-in-out;

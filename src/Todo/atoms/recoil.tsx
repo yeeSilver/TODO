@@ -13,3 +13,8 @@ export const openCreateModal = atom({
   key: "openCreate",
   default: false,
 });
+
+export const boxClicked = atom({
+  key: "isBoxClicked",
+  default: false,
+});

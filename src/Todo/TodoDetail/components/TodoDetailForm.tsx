@@ -1,6 +1,6 @@
-import { useRecoilState } from "recoil";
-import { toDoState } from "../../atoms/recoil";
-import { Link, Outlet } from "react-router-dom";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { boxClicked, toDoState } from "../../atoms/recoil";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import useDelTodo from "../../TodoList/hooks/useDelTodo";
 import EditSvg from "../../../assets/svg/edit.svg";
 import DelSvg from "../../../assets/svg/remove.svg";
@@ -21,12 +21,16 @@ export default function TodoDetailForm() {
 
   const id = todos[0][0].id;
   const { mutate } = useDelTodo();
+  const navigate = useNavigate();
+  const setisClicked = useSetRecoilState<boolean>(boxClicked);
 
   const onDelClicked = () => {
     // eslint-disable-next-line no-restricted-globals
     const res = confirm("해당 항목을 정말 삭제하시겠습니까?");
     if (res) {
       onDelete();
+      setisClicked(false);
+      navigate("/", { replace: true });
     }
   };
 
