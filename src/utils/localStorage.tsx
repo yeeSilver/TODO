@@ -1,4 +1,4 @@
-import { ACCESS_TOKEN_KEY } from "../constants/token";
+import { ACCESS_TOKEN_KEY, USERNAME } from "../constants/token";
 
 class Token {
   public getToken(key: string): string | null {
@@ -11,6 +11,18 @@ class Token {
 
   public clearToken() {
     localStorage.removeItem(ACCESS_TOKEN_KEY);
+  }
+
+  public getUsername(key: string): string | null {
+    return localStorage.getItem(key);
+  }
+
+  public setUsername(key: string, username: string) {
+    localStorage.setItem(key, username); //key item 보관
+  }
+
+  public clearUsername() {
+    localStorage.removeItem(USERNAME);
   }
 }
 

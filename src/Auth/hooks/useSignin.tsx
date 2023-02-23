@@ -6,7 +6,7 @@ import token from "../../utils/localStorage";
 import { api } from "../../utils/instance";
 import { useNavigate } from "react-router-dom";
 import client from "../../utils/axios";
-import { ACCESS_TOKEN_KEY } from "../../constants/token";
+import { ACCESS_TOKEN_KEY, USERNAME } from "../../constants/token";
 
 interface IForm {
   inputEmail: string;
@@ -29,8 +29,13 @@ const useSignin = () => {
     });
 
   return useMutation(loginRequest, {
-    onSuccess: (loginData: AxiosResponse<ILoginResponse>) => {
+    onSuccess: (loginData: AxiosResponse<ILoginResponse>, data: IForm) => {
       token.setToken(ACCESS_TOKEN_KEY, loginData.data.token);
+      // .+(?=@)
+      const regex = /.+(?=@)/;
+      const username = String(data.inputEmail.match(regex));
+      token.setUsername(USERNAME, username);
+      console.log(username?.[0]);
       navigate(`/todos`);
     },
     onError: (error) => {

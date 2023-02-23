@@ -15,6 +15,7 @@ import {
   EditBtn,
   Title,
 } from "./todoDetailForm.style";
+import Signout from "../../../components/Signout";
 
 export default function TodoDetailForm() {
   const todos = useRecoilState(toDoState);
@@ -26,7 +27,8 @@ export default function TodoDetailForm() {
 
   const onDelClicked = () => {
     // eslint-disable-next-line no-restricted-globals
-    const res = confirm("해당 항목을 정말 삭제하시겠습니까?");
+    const res = confirm("Are you sure to delete this task?");
+    // const res = confirm("해당 항목을 정말 삭제하시겠습니까?");
     if (res) {
       onDelete();
       setisClicked(false);

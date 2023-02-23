@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import DefaultSvg from "../../../assets/svg/detail_default.svg";
+import Signout from "../../../components/Signout";
 
 const Div = styled.div`
   display: flex;
@@ -24,9 +25,11 @@ const Text = styled.p`
 
 export default function Default() {
   return (
-    <Div>
-      <img src={DefaultSvg} alt="default image" />
-      <Text>Hello!</Text>
-    </Div>
+    <>
+      <Div>
+        <img src={DefaultSvg} alt="default image" />
+        <Text>Hello!</Text>
+      </Div>
+    </>
   );
 }

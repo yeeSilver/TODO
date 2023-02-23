@@ -20,6 +20,9 @@ import {
 import { IToDoState } from "../../types/types";
 import SetRecoilTodos from "../hooks/recoils/SetRecoilTodos";
 import Default from "../../TodoDetail/components/Default";
+import UsernameDiv from "../../../components/UsernameDiv";
+import TodoDetailPage from "../../../pages/todo/TodoDetailPage";
+import Signout from "../../../components/Signout";
 
 const TodoList = () => {
   const { isLoading, data: toDoList } = useQuery(["todos"], getTodos, {
@@ -47,6 +50,7 @@ const TodoList = () => {
         <div> Loading... </div>
       ) : (
         <Container>
+          <UsernameDiv />
           <TodoCon>
             <DateDiv />
             <div
@@ -83,7 +87,8 @@ const TodoList = () => {
             {openCreate && <TodoForm />}
           </TodoCon>
           <DetailCon>
-            {isBoxClicked ? <TodoDetailForm /> : <Default />}
+            <Signout />
+            {isBoxClicked ? <TodoDetailPage /> : <Default />}
           </DetailCon>
         </Container>
       )}

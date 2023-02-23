@@ -11,7 +11,7 @@ export const TodoCon = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
+  margin-top: 20px;
   height: 100vh;
 `;
 export const DetailCon = styled.section`
