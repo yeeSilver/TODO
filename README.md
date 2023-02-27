@@ -15,6 +15,7 @@ cd server
 yarn add
 ```
 
+Test E-mail & Password
 ```
 E-mail : 1234@gmail.com
 PW : 123412345
